@@ -27,68 +27,46 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/index.html"));
 });
 
-app.post("/validate-voucher", (req, res) => {
-    const voucherCode = req.body.voucherCode;
-    if (!voucherCode) {
-        return res.send({
-            message: "Voucher code is required",
-        });
-    }
+app.post("/stack-validate", (req, res) => {
+    const stackObject = req.body.stackObject;
 
-    client.validations.validateVoucher(voucherCode)
-        .then(response => {
-            if (response.valid) {
-                res.status(200).send({
-                    status  : "success",
-                    message : "Voucher granted",
-                    amount  : response.discount.amount_off,
-                    campaign: response.campaign ? response.campaign : null,
-                    code    : response.code
-                });
-            } else {
-                res.status(404).send({
-                    status : "error",
-                    message: "Voucher incorrect"
-                });
-            }
-        })
-        .catch(() => {
-            res.status(400).send({
-                status : "error",
-                message: "Voucher not found"
+    client.validations.validate(stackObject).then(response => {
+        if (response) {
+            return res.status(200).send({
+                promotions: response.promotions
             });
+        }
+        return res.status(400).send({
+            status : "error",
+            message: "Cannot validate"
         });
+    }).catch(() => {
+        return res.status(404).send({
+            status : "error",
+            message: "Cannot validate"
+        });
+    });
 });
 
-app.post("/redeem-voucher", (req, res) => {
-    const voucherCode = req.body.voucherCode;
-    if (!voucherCode) {
-        return res.send({
-            message: "Voucher code is required",
-        });
-    }
-    client.redemptions.redeem(voucherCode)
+app.post("/redeem-stackable", (req, res) => {
+    const stackObject = req.body.stackObject;
+    client.redemptions.redeemStackable(stackObject)
         .then(response => {
-            if (response.result) {
+            if (response.redemptions[0].result) {
                 res.status(200).send({
-                    status  : "success",
-                    message : "Voucher granted",
-                    amount  : response.voucher.discount.amount_off,
-                    campaign: response.voucher.campaign ? response.voucher.campaign : null,
-                    code    : response.voucher.code
+                    status: "success"
                 });
             } else {
-                console.log(response);
                 res.status(400).send({
                     status : "error",
-                    message: "Voucher not found"
+                    message: "Redeem promotions is not possible"
                 });
             }
         })
         .catch(() => {
             res.status(404).send({
                 status : "error",
-                message: "Voucher incorrect"
+                message: "Redeem promotions is not possible"
             });
         });
 });

@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@voucherify/sdk": "2.0.2",
+    "@voucherify/sdk": "^2.0.4",
     "body-parser": "1.20.0",
     "dotenv": "16.0.0",
     "express": "4.17.3",
