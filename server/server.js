@@ -36,12 +36,12 @@ app.post("/stack-validate", (req, res) => {
                 promotions: response.promotions
             });
         }
-        return res.status(400).send({
+        return res.status(404).send({
             status : "error",
             message: "Cannot validate"
         });
     }).catch(() => {
-        return res.status(404).send({
+        return res.status(400).send({
             status : "error",
             message: "Cannot validate"
         });
@@ -50,25 +50,23 @@ app.post("/stack-validate", (req, res) => {
 
 app.post("/redeem-stackable", (req, res) => {
     const stackObject = req.body.stackObject;
-    client.redemptions.redeemStackable(stackObject)
-        .then(response => {
-            if (response.redemptions[0].result) {
-                res.status(200).send({
-                    status: "success"
-                });
-            } else {
-                res.status(400).send({
-                    status : "error",
-                    message: "Redeem promotions is not possible"
-                });
-            }
-        })
-        .catch(() => {
+    client.redemptions.redeemStackable(stackObject).then(response => {
+        if (response.redemptions[0].result) {
+            res.status(200).send({
+                status: "success"
+            });
+        } else {
             res.status(404).send({
                 status : "error",
                 message: "Redeem promotions is not possible"
             });
+        }
+    }).catch(() => {
+        res.status(400).send({
+            status : "error",
+            message: "Redeem promotions is not possible"
         });
+    });
 });
 
 const port = process.env.PORT || 5000;

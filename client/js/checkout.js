@@ -35,7 +35,7 @@ window.addEventListener("load", () => {
         allDiscountsValueSpan.innerHTML = values.discount ? `-$${(values.discount).toFixed(2)}` : "n/a";
         subtotalValueSpan.innerHTML = `$${values.subtotal}`;
         values.promoItems.map(item => {
-            shippingValueSpan.innerHTML = `${item.id === "FREE SHIPPING" ? item.discount : shippingValueSpan.innerHTML}`;
+            shippingValueSpan.innerHTML = `${item.name === "Reward Promotion Tier 1" ? "0.00" : shippingValueSpan.innerHTML}`;
         });
         const grandTotalValueSpan = document.querySelector(".grand-total span");
         grandTotalValueSpan.innerHTML = `$${(values.subtotal - values.discount + parseFloat(shippingValueSpan.innerHTML)).toFixed(2)}`;
@@ -62,7 +62,7 @@ window.addEventListener("load", () => {
 
     const values = JSON.parse(sessionStorage.getItem("values") || "[]");
     stackObject.order.amount = values.subtotal * 100;
-    stackObject.redeemables = values.promoItems;
+    stackObject.redeemables = values.promoItems.sort((a, b) => b.discount - a.discount);
 
     innerSummedValues(discountValueSpan, subtotalValueSpan, allDiscountsValueSpan, shippingValueSpan, couponsWrapper);
     innerSummedProducts(summedProducts);

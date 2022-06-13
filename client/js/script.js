@@ -277,8 +277,8 @@ if (checkoutButton) {
 }
 
 const productsToSessionStorage = () => {
-    summedValuesToCheckout.subtotal = parseInt(subtotal.innerHTML.replace("$", ""));
-    const filtered = summedValuesToCheckout.promoItems.filter((item, index, array) => array.findIndex(t => t.id === item.id) === index);
+    summedValuesToCheckout.subtotal = subtotal.innerHTML.replace("$", "");
+    const filtered = summedValuesToCheckout.promoItems.slice(-3).filter((item, index, array) => array.findIndex(t => t.id === item.id) === index);
     summedValuesToCheckout.promoItems = filtered;
     window.sessionStorage.setItem("values", JSON.stringify(summedValuesToCheckout));
     window.sessionStorage.setItem("products", JSON.stringify(items));
