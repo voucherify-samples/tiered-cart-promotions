@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Voucher Code Redemption</title>
+    <title>Cart tiered promotions</title>
     <meta name="description" content="" />
     <meta
       name="viewport"
@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="./css/style.css">
   </head>
   <body>
-    <!-- Navbar -->
     <section data-component="navbar" class="navbar">
       <img class="shop-logo" alt="shop logo" src="./images/black.svg" />
       <ul class="navbar-list-holder">
@@ -30,9 +29,6 @@
         <span class="shopping-cart"><img src="./images/shopping_cart.svg" alt="Shopping cart"></span>
       </ul>
     </section>
-
-    <!-- Cart summary -->
-
     <h2>Your cart</h2>
     <div class="cart-and-summary-holder">
       <div class="cart-and-reward-wrapper">
@@ -40,10 +36,9 @@
         <div class="reward-wrapper">
           <div class="reward-titles">
             <h4>REWARDS</h4>
-            <p><img src="./images/blocked-icon.svg">FREE US SHIPPING</p>
-            <p><img src="./images/blocked-icon.svg">5%</p>
-            <p><img src="./images/blocked-icon.svg">$10.00</p>
-            <p><img src="./images/blocked-icon.svg">FREE GIFT</p>
+            <p><img src="./images/blocked-icon.svg">FREE SHIPPING</p>
+            <p><img src="./images/blocked-icon.svg">3%</p>
+            <p><img src="./images/blocked-icon.svg">6%</p>
           </div>
           <div class="progress-bar-wrapper">
             <div class="progress-bar-numbers">
@@ -51,15 +46,14 @@
               <span>100</span>
               <span>250</span>
               <span>500</span>
-              <span>750</span>
             </div>
             <div class="progress-bar-content">
-              <span></span>
+              <span class="progress-tier"></span>
               <span></span>
               <span></span>
             </div>
           </div>
-          <h4><span>Spend $150</span> more to get 5% off</h4>
+          <h4 class="reward-banner">Spend $100 more to get FREE SHIPPING</h4>
         </div>
         <section
         id="cart-summary"
@@ -71,15 +65,9 @@
       <section class="orderSummary" data-component="orderSummary">
         <h2>Order summary</h2>
         <div class="total-order-holder">
-          <h4>Subtotal<span id="subtotal">$135.85</span></h4>
+          <h4>Subtotal<span id="subtotal">$0.00</span></h4>
           <h4>Shipping<span>Calculated at next step</span></h4>
           <h4>Coupon Codes:</h4>
-          <div class="voucher-examples">
-            <span>BLCKFRDY (10% off)</span>
-            <span>HAPPY-ORDERxq7 (20% off)</span>
-            <span>HAPPY-ORDERyra (20% off)</span>
-            <span>FREE SHIPPING (Free shipping)</span>
-          </div>
           <div class="voucher-input-and-button-holder">
             <form>
               <input
@@ -98,12 +86,11 @@
           <h4 class="discount-price-holder">
             All Your Discounts:<span id="all-discounts">n/a</span>
           </h4>
-          <h4>Grand total:<span id="grand-total">$135.85</span></h4>
+          <h4>Grand total:<span id="grand-total">$0.00</span></h4>
         </div>
         <button id="checkout-button" class="checkout-button">Checkout</button>
       </section>
     </div>
-
     <footer data-component="footer" class="footer">
       <div class="footer-left-holder">
         <img
